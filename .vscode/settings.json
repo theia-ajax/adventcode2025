@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"*.lua": "lua",
+		"stb_ds.h": "c"
+	}
+}
