@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "stb_ds.h"
 
 char* read_entire_file(const char* file_name, size_t* out_length);

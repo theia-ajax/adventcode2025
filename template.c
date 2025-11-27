@@ -1,4 +1,4 @@
-#include "tools.c"
+#include "common.c"
 
 void part1(char* data, size_t data_length, char** lines)
 {
