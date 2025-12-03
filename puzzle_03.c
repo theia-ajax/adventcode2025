@@ -21,7 +21,7 @@ int main()
 		size_t data_length;
 		char data_file_name[64];
 		printf("\n---- Part %d ----\n", i + 1);
-		snprintf(data_file_name, 64, "<puzzle_id>p%d.txt", i + 1);
+		snprintf(data_file_name, 64, "puzzle_03p%d.txt", i + 1);
 		char* data = read_entire_file(data_file_name, &data_length);
 		char** lines = NULL;
 		

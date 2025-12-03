@@ -53,33 +53,37 @@ _on_error:
 	return NULL;
 }
 
-char** split_lines(const char* buffer, size_t buffer_length)
+char** strsplit(const char* str, size_t len, const char* delim)
 {
 	char** list = NULL;
 	arrsetcap(list, 1024);
 
-	char* buffer_copy = calloc(buffer_length, sizeof(char));
-	strncpy(buffer_copy, buffer, buffer_length);
+	char* str_copy = calloc(len, sizeof(char));
+	strncpy(str_copy, str, len);
 
-	const char* delim = "\n";
-	char* line = strtok(buffer_copy, delim);
-	while (line) {
-		size_t line_length = strlen(line);
-		char* line_copy = calloc(line_length + 1, sizeof(char));
-		strncpy(line_copy, line, line_length);
-		arrput(list, line_copy);
-		line = strtok(NULL, delim);
+	char* next = strtok(str_copy, delim);
+	while (next) {
+		size_t next_len = strlen(next);
+		char* next_copy = calloc(next_len + 1, sizeof(char));
+		strncpy(next_copy, next, next_len);
+		arrput(list, next_copy);
+		next = strtok(NULL, delim);
 	}
 
-	free(buffer_copy);
+	free(str_copy);
 
 	return list;
 }
 
-void free_lines(char** lines)
+char** split_lines(const char* buffer, size_t buffer_length)
 {
-	for (int i = 0; i < arrlen(lines); i++) {
-		free(lines[i]);
+	return strsplit(buffer, buffer_length, "\n");
+}
+
+void freetok(char** tokens)
+{
+	for (int i = 0; i < arrlen(tokens); i++) {
+		free(tokens[i]);
 	}
-	arrfree(lines);
+	arrfree(tokens);
 }
