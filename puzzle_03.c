@@ -1,38 +1,5 @@
 #include "common.c"
 
-int max_joltage1(const char* battery, size_t len)
-{
-	if (len < 2)
-	{
-		return 0;
-	}
-
-	char himax = 0;
-	int hi_index = -1;
-	for (int chi = 0; chi < len - 1; chi++)
-	{
-		if (battery[chi] > himax)
-		{
-			himax = battery[chi];
-			hi_index = chi;
-		}
-	}
-
-	char lomax = 0;
-	int lo_index = -1;
-	for (int clo = hi_index + 1; clo < len; clo++)
-	{
-		if (battery[clo] > lomax)
-		{
-			lomax = battery[clo];
-			lo_index = clo;
-		}
-	}
-
-	int joltage = ((int)himax - '0') * 10 + (int)lomax - '0';
-	return joltage;
-}
-
 struct range
 {
 	int start;
@@ -65,27 +32,42 @@ struct max_digit max_in_view(const char* battery, const struct range* view)
 	};
 }
 
-int64_t max_joltage2(const char* battery, size_t len)
+int64_t max_joltage(const char* battery, size_t len, int num_digits)
 {
-	int digits[12] = {0};
+	int* digits = calloc(num_digits, sizeof(int));
 	int lastidx = 0;
 	
-	for (int digit_index = 0; digit_index < 12; digit_index++)
+	for (int digit_index = 0; digit_index < num_digits; digit_index++)
 	{
-		struct range view = calc_view(lastidx, 12 - digit_index, len);
+		struct range view = calc_view(lastidx, num_digits - digit_index, len);
 		struct max_digit max_digit = max_in_view(battery, &view);
 		lastidx = max_digit.index + 1;
 		digits[digit_index] = max_digit.value;
 	}
 	
 	int64_t joltage = 0;
-	int64_t mul = 100000000000;
-	for (int i = 0; i < 12; i++)
+	int64_t mul = 1;
+	for (int i = 0; i < num_digits - 1; i++) mul *= 10;
+
+	for (int i = 0; i < num_digits; i++)
 	{
 		joltage += (int64_t)digits[i] * mul;
 		mul /= 10;
 	}
+
+	free(digits);
+
 	return joltage;
+}
+
+int max_joltage1(const char* battery, size_t len)
+{
+	return max_joltage(battery, len, 2);
+}
+
+int64_t max_joltage2(const char* battery, size_t len)
+{
+	return max_joltage(battery, len, 12);
 }
 
 void part1(char* data, size_t data_length, char** lines, size_t line_count)
