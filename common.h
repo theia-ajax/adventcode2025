@@ -10,6 +10,9 @@
 
 #include "stb_ds.h"
 
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+
 char* read_entire_file(const char* file_name, size_t* out_length);
 char** split_lines(const char* buffer, size_t buffer_length);
 char** strsplit(const char* str, size_t len, const char* delim);

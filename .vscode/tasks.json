@@ -6,7 +6,7 @@
             "command": "C:\\Users\\theia\\bin\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                "-std=c11",
+                "-std=c23",
                 "-g",
                 "${file}",
                 "-o",
