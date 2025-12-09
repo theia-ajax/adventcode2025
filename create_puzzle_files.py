@@ -9,8 +9,7 @@ def create_files(id):
 			cfile.write(data)
 	except:
 		pass
-	open("{}p1.txt".format(puzzle_name), 'a').close()
-	open("{}p2.txt".format(puzzle_name), 'a').close()
+	open("{}.txt".format(puzzle_name), 'a').close()
 
 parser = argparse.ArgumentParser(
 	prog="create_puzzle_files",
