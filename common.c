@@ -58,7 +58,7 @@ char** strsplit(const char* str, size_t len, const char* delim)
 	char** list = NULL;
 	arrsetcap(list, 1024);
 
-	char* str_copy = calloc(len, sizeof(char));
+	char* str_copy = calloc(len + 1, sizeof(char));
 	strncpy(str_copy, str, len);
 
 	char* next = strtok(str_copy, delim);
