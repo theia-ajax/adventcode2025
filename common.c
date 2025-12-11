@@ -5,6 +5,11 @@
 #define STB_DS_IMPLEMENTATION
 #include "stb_ds.h"
 
+#define SOKOL_TIME_IMPL
+#include "sokol_time.h"
+
+#include "xxhash.c"
+
 char* read_entire_file(const char* file_name, size_t* out_length)
 {
 	FILE* file = fopen(file_name, "r");
@@ -87,3 +92,4 @@ void freetok(char** tokens)
 	}
 	arrfree(tokens);
 }
+

@@ -30,6 +30,8 @@ void part2(struct context* ctx)
 
 int main()
 {
+	stm_setup();
+
 	size_t test_data_length = strlen(k_test_data);
 	char* test_data = calloc(test_data_length + 1, sizeof(char));
 	strcpy(test_data, k_test_data);
